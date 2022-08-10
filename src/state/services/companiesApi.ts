@@ -6,6 +6,7 @@ const companiesApiHeaders = {
 
 const createRequest = (url: string) => ({ url, headers: companiesApiHeaders });
 
+
 const baseUrl = 'http://localhost:5000/api/v1'
 
 export const companiesApi = createApi({
@@ -14,8 +15,19 @@ export const companiesApi = createApi({
   endpoints: (builder) => ({
     getCompanies: builder.query({
       query: () => createRequest('/companies')
-    })
-  }),
-})
+    }),
+    addCompany: builder.mutation({
+      query: (data) => ({
+        url: "companies",
+        method: "post",
+        body: data,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        }
+      }
+      )
 
-export const { useGetCompaniesQuery } = companiesApi
+    }),
+  })
+})
+export const { useGetCompaniesQuery, useAddCompanyMutation } = companiesApi

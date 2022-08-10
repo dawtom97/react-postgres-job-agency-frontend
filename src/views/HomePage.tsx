@@ -1,4 +1,5 @@
 import React from 'react'
+import { AddCompany } from '../components/AddCompany';
 import { CompaniesList } from '../components/CompaniesList';
 import { Header } from '../components/Header'
 import { useGetCompaniesQuery } from '../state/services/companiesApi'
@@ -12,6 +13,7 @@ export const HomePage:React.FC = ():any => {
   return (
     <div>
       <Header/>
+      <AddCompany/>
       <CompaniesList companies={content.data.company}/>
     </div>
   )

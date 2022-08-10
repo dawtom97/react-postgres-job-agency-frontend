@@ -1,16 +1,29 @@
 import React from "react";
 
-export const CompaniesList = ({companies}:any) => {
+
+interface ICompany {
+  companies: {
+    id:number,
+    name:string,
+    location:string,
+    price_range:number
+  }[]
+}
+
+export const CompaniesList = ({companies}:ICompany) => {
   return (
     <div>
       <table>
 
         <thead>
-          {companies.map((company:any,index:number)=>(
-             <tr key={index}>
+          {companies.map((company)=>(
+             <tr key={company.id}>
                <td>{company.name}</td>
                <td>{company.location}</td>
-               <td>{company.price_range}</td>
+               <td>{"$".repeat(company.price_range)}</td>
+               <td>
+                reviews
+               </td>
                <td>
                   <button>Edit</button>
                </td>
