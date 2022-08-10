@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAddCompanyMutation } from "../state/services/companiesApi";
+import { useAddCompanyMutation} from "../state/services/companiesApi";
 
 
 const initialState = {
@@ -20,10 +20,10 @@ export const AddCompany:React.FC = () => {
     })
   };
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     if(company.name.length > 3) {
-       addCompany(company);
+       await addCompany(company);
        setCompany(initialState);
        console.log("udało się dodać")
     } 
@@ -44,7 +44,7 @@ export const AddCompany:React.FC = () => {
         </div>
         <div>
            <select onChange={handleChange} name="price_range" id="">
-            <option selected disabled>Price range</option>
+            <option value="">Price range</option>
             <option value="1">$</option>
             <option value="2">$$</option>
             <option value="3">$$$</option>
