@@ -19,7 +19,11 @@ export const companiesApi = createApi({
       query: () => createRequest('/companies'),
       providesTags: ['Company']
     }),
-    addCompany: builder.mutation<{},CompanyModel>({
+    getSingleCompany: builder.query({
+      query: (id) => createRequest(`/companies/${id}`),
+      providesTags: ['Company']
+    }),
+    addCompany: builder.mutation<{}, CompanyModel>({
       query: (data) => ({
         url: "companies",
         method: "post",
@@ -31,15 +35,29 @@ export const companiesApi = createApi({
       }),
       invalidatesTags: ['Company']
     }),
-    deleteCompany: builder.mutation<void,number>({
+    updateCompany: builder.mutation<{}, CompanyModel>({
+      query: (data) => (
+        {
+          url: `companies/${data.id}`,
+          method: "put",
+          body: data,
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+
+        }),
+      invalidatesTags: ['Company']
+    }),
+    deleteCompany: builder.mutation<void, number>({
       query: (id) => ({
         url: `companies/${id}`,
         method: "delete",
       }),
       invalidatesTags: ['Company']
     })
-  })
+  }),
+
 })
 
 
-export const { useGetCompaniesQuery, useAddCompanyMutation, useDeleteCompanyMutation } = companiesApi
+export const { useGetCompaniesQuery, useAddCompanyMutation, useDeleteCompanyMutation, useGetSingleCompanyQuery, useUpdateCompanyMutation } = companiesApi

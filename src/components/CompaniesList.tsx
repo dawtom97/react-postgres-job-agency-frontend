@@ -1,5 +1,6 @@
 import React from "react";
 import { useDeleteCompanyMutation } from "../state/services/companiesApi";
+import {useNavigate} from 'react-router-dom'
 
 interface ICompany {
   companies: {
@@ -12,10 +13,15 @@ interface ICompany {
 
 export const CompaniesList = ({ companies }: ICompany) => {
   const [deleteCompany, { isSuccess }] = useDeleteCompanyMutation();
+  const navigate = useNavigate();
 
   const handleDelete = async (id: number) => {
     await deleteCompany(id);
   };
+
+  const handleUpdate = (id:number) => {
+    navigate(`/companies/${id}/update`)
+  }
 
   return (
     <div>
@@ -28,7 +34,7 @@ export const CompaniesList = ({ companies }: ICompany) => {
               <td>{"$".repeat(company.price_range)}</td>
               <td>reviews</td>
               <td>
-                <button>Edit</button>
+                <button onClick={()=>handleUpdate(company.id)}>Edit</button>
               </td>
               <td>
                 <button onClick={() => handleDelete(company.id)}>Delete</button>
@@ -42,3 +48,4 @@ export const CompaniesList = ({ companies }: ICompany) => {
     </div>
   );
 };
+
