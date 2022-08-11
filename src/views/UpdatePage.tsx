@@ -1,5 +1,5 @@
 import React, {  ChangeEvent, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useGetSingleCompanyQuery, useUpdateCompanyMutation } from '../state/services/companiesApi';
 
 
@@ -13,6 +13,7 @@ export const UpdatePage:React.FC  = ():any => {
  const {id} = useParams();
  const {data:content, isFetching} = useGetSingleCompanyQuery(Number(id));
  const [updateCompany] = useUpdateCompanyMutation();
+ const navigate = useNavigate();
 
  useEffect(()=>{
    if(isFetching) return;
@@ -32,6 +33,8 @@ export const UpdatePage:React.FC  = ():any => {
  const handleSubmit = (e:any) => {
      e.preventDefault();
      updateCompany(updateContent);
+     console.log("Zaktualizowano");
+     navigate('/');
  }
 
 
